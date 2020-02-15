@@ -54,10 +54,10 @@ class Window(QtWidgets.QMainWindow):
             print('-x')
             reply = self.xdev.move_rel(-self.cm)
         elif e.key() == QtCore.Qt.Key_Up:
-            print('-x')
+            print('+z')
             reply = self.zdev.move_rel(self.cm)
         elif e.key() == QtCore.Qt.Key_Down:
-            print('-x')
+            print('-z')
             reply = self.zdev.move_rel(-self.cm)
     def keyReleaseEvent(self, e):
         print("key release")
