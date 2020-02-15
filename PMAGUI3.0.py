@@ -306,7 +306,6 @@ class Window(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
     #wasd control not working currently, leaving it here
     def keyPressEvent(self, e):
-        print("key press")
         if e.key() == QtCore.Qt.Key_W:
             print("+1cm Y")
             try:
@@ -325,19 +324,29 @@ class Window(QtWidgets.QMainWindow):
             self.lcdNumber_2.display(self.y)
             reply = self.ydev.move_rel(-self.cm)
         elif e.key() == QtCore.Qt.Key_A:
-            print('+x')
+            print("+1cm X")
+            try:
+                self.x = self.x + 1
+            except:
+                self.x = 1
+            self.lcdNumber_3.display(self.x)
             reply = self.xdev.move_rel(self.cm)
         elif e.key() == QtCore.Qt.Key_D:
-            print('-x')
+            try:
+                if self.x > 0:
+                    self.x = self.x - 1
+                    print("-1cm X")
+            except:
+                self.x = 0
+            self.lcdNumber_3.display(self.x)
             reply = self.xdev.move_rel(-self.cm)
         elif e.key() == QtCore.Qt.Key_Up:
-            print('+z')
-            reply = self.zdev.move_rel(self.cm)
+            self.verticalSlider.setValue(self.verticalSlider.value() + 1)
+            print("+1cm Z")
         elif e.key() == QtCore.Qt.Key_Down:
-            print('-z')
-            reply = self.zdev.move_rel(-self.cm)
+            self.verticalSlider.setValue(self.verticalSlider.value() - 1)
+            print("-1cm Z")
     def keyReleaseEvent(self, e):
-        print("key release")
         if e.key() == QtCore.Qt.Key_W:
             print('0y')
         elif e.key() == QtCore.Qt.Key_S:
