@@ -11,14 +11,14 @@ class Ui_MainWindow(object):
     #UI Setup
     def setupUi(self, MainWindow):
         super(Ui_MainWindow, self).__init__()
-        #self.setMinimumSize(1000, 1000)
+        #self.setMinimumSize(1000, 1000) #How I tested which window accepted qt methods
         pass
 
 class Window(QtWidgets.QMainWindow):
     #only way I found to get keypressed working
     def __init__(self):
         super(Window, self).__init__()
-        #self.setMinimumSize(1000, 1000)
+        #self.setMinimumSize(1000, 1000) #How I tested which window accepted qt methods
         #PMA Setup, mostly copied from the file-based motion control
         try:
             USB_DEVICE = 'COM6'
@@ -313,7 +313,7 @@ class Window(QtWidgets.QMainWindow):
             except:
                 self.y = 1
             self.lcdNumber_2.display(self.y)
-            reply = self.ydev.move_rel(self.cm)
+            reply = self.ydev.move_vel(20*self.cm)
         elif e.key() == QtCore.Qt.Key_S:
             try:
                 if self.y > 0:
@@ -322,7 +322,7 @@ class Window(QtWidgets.QMainWindow):
             except:
                 self.y = 0
             self.lcdNumber_2.display(self.y)
-            reply = self.ydev.move_rel(-self.cm)
+            reply = self.ydev.move_vel(-(20*self.cm))
         elif e.key() == QtCore.Qt.Key_A:
             print("+1cm X")
             try:
@@ -330,7 +330,7 @@ class Window(QtWidgets.QMainWindow):
             except:
                 self.x = 1
             self.lcdNumber_3.display(self.x)
-            reply = self.xdev.move_rel(self.cm)
+            reply = self.xdev.move_vel(20*self.cm)
         elif e.key() == QtCore.Qt.Key_D:
             try:
                 if self.x > 0:
@@ -339,8 +339,9 @@ class Window(QtWidgets.QMainWindow):
             except:
                 self.x = 0
             self.lcdNumber_3.display(self.x)
-            reply = self.xdev.move_rel(-self.cm)
+            reply = self.xdev.move_vel(-(20*self.cm))
         elif e.key() == QtCore.Qt.Key_Up:
+            #Z keyboard control isn't very useful compared to GUI so might remove
             self.verticalSlider.setValue(self.verticalSlider.value() + 1)
             print("+1cm Z")
         elif e.key() == QtCore.Qt.Key_Down:
@@ -349,12 +350,16 @@ class Window(QtWidgets.QMainWindow):
     def keyReleaseEvent(self, e):
         if e.key() == QtCore.Qt.Key_W:
             print('0y')
+            reply = self.ydev.move_vel(0)
         elif e.key() == QtCore.Qt.Key_S:
             print('0y')
+            reply = self.ydev.move_vel(0)
         elif e.key() == QtCore.Qt.Key_A:
             print('0x')
+            reply = self.xdev.move_vel(0)
         elif e.key() == QtCore.Qt.Key_D:
             print('0x')
+            reply = self.xdev.move_vel(0)
         elif e.key() == QtCore.Qt.Key_Up:
             print('0z')
         elif e.key() == QtCore.Qt.Key_Down:
