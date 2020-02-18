@@ -307,35 +307,35 @@ class Window(QtWidgets.QMainWindow):
     #wasd control not working currently, leaving it here
     def keyPressEvent(self, e):
         if e.key() == QtCore.Qt.Key_W:
-            print("+1cm Y")
+            print("+0.388455cm Y")
             try:
-                self.y = self.y + 1
+                self.y = self.y + 0.388455
             except:
-                self.y = 1
+                self.y = 0.388455
             self.lcdNumber_2.display(self.y)
             reply = self.ydev.move_vel(20*self.cm)
         elif e.key() == QtCore.Qt.Key_S:
             try:
                 if self.y > 0:
-                    self.y = self.y - 1
-                    print("-1cm Y")
+                    self.y = self.y - 0.388455
+                    print("-0.388455cm Y")
             except:
                 self.y = 0
             self.lcdNumber_2.display(self.y)
             reply = self.ydev.move_vel(-(20*self.cm))
         elif e.key() == QtCore.Qt.Key_A:
-            print("+1cm X")
+            print("+0.377799cm X")
             try:
-                self.x = self.x + 1
+                self.x = self.x + 0.377799
             except:
-                self.x = 1
+                self.x = 0.377799
             self.lcdNumber_3.display(self.x)
             reply = self.xdev.move_vel(20*self.cm)
         elif e.key() == QtCore.Qt.Key_D:
             try:
                 if self.x > 0:
-                    self.x = self.x - 1
-                    print("-1cm X")
+                    self.x = self.x - 0.377799
+                    print("-0.377799cm X")
             except:
                 self.x = 0
             self.lcdNumber_3.display(self.x)
